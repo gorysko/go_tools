@@ -15,20 +15,20 @@ func check(e error) {
 func ReadData(path string) string {
     dat, err := ioutil.ReadFile(path)
     check(err)
-    buffer := UncompressData(dat)
+    buffer := uncompress_data(dat)
     return string(buffer.String())
 
 }
 
 func WriteData(path string, data string) {
     write_data := []byte(data)
-    compressed := CompressData(write_data)
+    compressed := compress_data(write_data)
     err := ioutil.WriteFile(path, compressed.Bytes(), 0644)
     check(err)
 }
 
 
-func CompressData(data []byte) bytes.Buffer {
+func compress_data(data []byte) bytes.Buffer {
     var write_bytes bytes.Buffer
 
     writer := zlib.NewWriter(&write_bytes)
@@ -37,7 +37,7 @@ func CompressData(data []byte) bytes.Buffer {
     return write_bytes
 }
 
-func UncompressData(data []byte) bytes.Buffer {
+func uncompress_data(data []byte) bytes.Buffer {
     var buffer bytes.Buffer
 
     buff := []byte(data)
